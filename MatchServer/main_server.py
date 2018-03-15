@@ -4,6 +4,11 @@ import web
 from .RefereeWorker import RefereeWorker
 from .utils import server_info
 
+urls = (
+    "/play", "RefereeServer",
+    '/check', "RefereeServer",
+    "/ping", "RefereeServer"
+)
 
 class RefereeServer(object):
     """
@@ -13,17 +18,12 @@ class RefereeServer(object):
     作为服务器接受外部判题请求
     focusing on connections
     """
-    urls = (
-        "/play", "RefereeServer",
-        '/check', "RefereeServer"
-        "/ping", "RefereeServer"
-    )
 
     def __init__(self):
         self.worker = RefereeWorker()
 
     def GET(self):
-        return "hello from Referee Server"
+        json.dumps(server_info())
 
     def POST(self):
         """
@@ -36,14 +36,15 @@ class RefereeServer(object):
             except Exception as e:
                 return self.send_error()
         else:
-            return {}
+            return json.dumps({'err': None,
+                          'data': None})
         switcher = {
             '/play': self.worker.accept_task,
             '/check': self.worker.query_task_result,
             '/ping': self.pong
         }
         callback = switcher.get(web.ctx['path'], self.send_error)
-        return json.dump({'err': None,
+        return json.dumps({'err': None,
                           'data': callback(**data)})
 
     @staticmethod
@@ -63,7 +64,7 @@ class RefereeServer(object):
 
     @staticmethod
     def get_web_app():
-        app = web.application(RefereeServer.urls, globals())
+        app = web.application(urls, globals())
         wsgiapp = app.wsgifunc()
         # gunicorn -w 4 -b 0.0.0.0:8080 server:wsgiapp
         return app, wsgiapp
