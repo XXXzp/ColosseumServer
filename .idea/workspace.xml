@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2f586b31-33cf-4ef3-91e2-9370a59e738c" name="Default" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MatchServer/RefereeWorker.py" afterPath="$PROJECT_DIR$/MatchServer/RefereeWorker.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/MatchServer/main_server.py" afterPath="$PROJECT_DIR$/MatchServer/main_server.py" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,7 +27,11 @@
       <file leaf-file-name="exception.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MatchServer/exception.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="330">
+=======
+            <state relative-caret-position="345">
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
               <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
               <folding />
             </state>
@@ -31,10 +41,15 @@
       <file leaf-file-name="main_server.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchServer/main_server.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="726">
               <caret line="33" column="16" lean-forward="true" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
+=======
+            <state relative-caret-position="874">
+              <caret line="68" column="54" lean-forward="true" selection-start-line="68" selection-start-column="54" selection-end-line="68" selection-end-column="54" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#15#26#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -43,10 +58,15 @@
       <file leaf-file-name="test_request.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test_request.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="616">
               <caret line="28" column="0" lean-forward="false" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+=======
+            <state relative-caret-position="610">
+              <caret line="193" column="48" lean-forward="true" selection-start-line="193" selection-start-column="48" selection-end-line="193" selection-end-column="48" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
               <folding>
-                <element signature="e#0#13#0" expanded="true" />
+                <element signature="e#15#28#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -55,13 +75,19 @@
       <file leaf-file-name="ColosseumServer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ColosseumServer.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state relative-caret-position="88">
               <caret line="4" column="9" lean-forward="false" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+=======
+            <state relative-caret-position="230">
+              <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="RefereeWorker.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MatchServer/RefereeWorker.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -79,6 +105,13 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="660">
               <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+=======
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MatchServer/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-839">
+              <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
               <folding>
                 <element signature="e#15#28#0" expanded="true" />
               </folding>
@@ -86,11 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="configure.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="configure.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/MatchServer/configure.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="322">
+              <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
               <folding>
                 <element signature="e#15#34#0" expanded="true" />
               </folding>
@@ -146,11 +179,16 @@
         <option value="$PROJECT_DIR$/MatchServer/exception.py" />
         <option value="$PROJECT_DIR$/MatchServer/configure.py" />
         <option value="$PROJECT_DIR$/MatchServer/utils.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/MatchServer/MatchServer.py" />
         <option value="$PROJECT_DIR$/ColosseumServer.py" />
         <option value="$PROJECT_DIR$/MatchServer/RefereeWorker.py" />
         <option value="$PROJECT_DIR$/MatchServer/main_server.py" />
         <option value="$PROJECT_DIR$/test_request.py" />
+=======
+        <option value="$PROJECT_DIR$/MatchServer/main_server.py" />
+        <option value="$PROJECT_DIR$/MatchServer/RefereeWorker.py" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
       </list>
     </option>
   </component>
@@ -206,7 +244,7 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/MatchServer/tests" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///home/xzp/Repos/ColosseumServer/MatchServer/__init__.py" />
   </component>
   <component name="PyConsoleOptionsProvider">
@@ -246,7 +284,6 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="main_server" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -265,7 +302,6 @@
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
     </configuration>
     <configuration name="py.test for test_refereeServer.TestRefereeServer" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -345,10 +381,16 @@
     </history-entry>
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="89" y="-6" width="1831" height="1086" extended-state="6" />
     <editor active="true" />
+=======
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
     <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16510417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942432" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -358,15 +400,30 @@
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+<<<<<<< HEAD
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32979852" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -405,7 +462,11 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/MatchServer/exception.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="330">
+=======
+        <state relative-caret-position="345">
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
@@ -413,17 +474,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchServer/main_server.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="1518">
+=======
+        <state relative-caret-position="1495">
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#15#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchServer/RefereeWorker.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="3190">
+=======
+        <state relative-caret-position="3335">
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
@@ -432,6 +501,7 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchServer/tests/test_refereeWorker.py">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
           <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
@@ -458,17 +528,24 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchServer/__init__.py">
+=======
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="230">
+          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchServer/utils.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="330">
           <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+=======
+        <state relative-caret-position="276">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           <folding>
             <element signature="e#15#28#0" expanded="true" />
           </folding>
@@ -483,6 +560,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/MatchServer/main_server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -490,27 +568,53 @@
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/MatchServer/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MatchServer/utils.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="462">
           <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding>
+            <element signature="e#15#28#0" expanded="true" />
+          </folding>
+=======
+        <state relative-caret-position="345">
+          <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
           <folding>
             <element signature="e#15#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MatchServer/__init__.py">
+    <entry file="file://$PROJECT_DIR$/MatchServer/exception.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="220">
+          <caret line="10" column="0" lean-forward="true" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/MatchServer/main_server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/MatchServer/worker_client.py" />
     <entry file="file://$PROJECT_DIR$/MatchServer/configure.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -532,7 +636,63 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/test_server_info.py" />
     <entry file="file://$PROJECT_DIR$/MatchServer/worker_client.py" />
+=======
+    <entry file="file://$PROJECT_DIR$/MatchServer/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="27" column="13" lean-forward="true" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+          <folding>
+            <element signature="e#15#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
     <entry file="file://$PROJECT_DIR$/MatchServer/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/tests/server_test.py" />
+    <entry file="file://$PROJECT_DIR$/tests/__init__.py" />
+    <entry file="file://$PROJECT_DIR$/tests/asd.py" />
+    <entry file="file://$PROJECT_DIR$/tests/test_refereeServer.py" />
+    <entry file="file://$PROJECT_DIR$/MatchServer/exception.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+=======
+    <entry file="file://$PROJECT_DIR$/MatchServer/worker_client.py" />
+    <entry file="file://$PROJECT_DIR$/MatchServer/configure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="12" column="37" lean-forward="true" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+          <folding>
+            <element signature="e#15#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/pyvenv.cfg">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/MatchServer/MatchServer.py">
+=======
+    <entry file="file://$PROJECT_DIR$/tests/test_server_info.py" />
+    <entry file="file://$PROJECT_DIR$/MatchServer/worker_client.py" />
+    <entry file="file://$PROJECT_DIR$/MatchServer/__init__.py">
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -544,60 +704,66 @@
     <entry file="file://$PROJECT_DIR$/tests/__init__.py" />
     <entry file="file://$PROJECT_DIR$/tests/asd.py" />
     <entry file="file://$PROJECT_DIR$/tests/test_refereeServer.py" />
-    <entry file="file://$PROJECT_DIR$/MatchServer/exception.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MatchServer/MatchServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MatchServer/tests/test_refereeWorker.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="22">
           <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+=======
+        <state relative-caret-position="230">
+          <caret line="10" column="19" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MatchServer/configure.py">
+    <entry file="file://$PROJECT_DIR$/MatchServer/main_server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+        <state relative-caret-position="874">
+          <caret line="68" column="54" lean-forward="true" selection-start-line="68" selection-start-column="54" selection-end-line="68" selection-end-column="54" />
           <folding>
-            <element signature="e#15#34#0" expanded="true" />
+            <element signature="e#15#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/MatchServer/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="30" column="13" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+=======
+    <entry file="file://$PROJECT_DIR$/MatchServer/RefereeWorker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="610">
+          <caret line="193" column="48" lean-forward="true" selection-start-line="193" selection-start-column="48" selection-end-line="193" selection-end-column="48" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           <folding>
             <element signature="e#15#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/MatchServer/RefereeWorker.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
           <caret line="19" column="0" lean-forward="false" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/MatchServer/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-839">
+          <caret line="0" column="14" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#28#0" expanded="true" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/ColosseumServer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="88">
@@ -622,6 +788,22 @@
           <caret line="33" column="16" lean-forward="true" selection-start-line="33" selection-start-column="16" selection-end-line="33" selection-end-column="16" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/MatchServer/exception.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="15" column="0" lean-forward="false" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MatchServer/configure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="14" column="0" lean-forward="true" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding>
+            <element signature="e#15#34#0" expanded="true" />
+>>>>>>> e2242d6e0d5f0d8dac4b5eb75f2f853969bef846
           </folding>
         </state>
       </provider>
