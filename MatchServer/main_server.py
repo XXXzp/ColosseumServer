@@ -5,11 +5,6 @@ import web
 from .RefereeWorker import RefereeWorker
 from .utils import server_info
 
-urls = (
-    "/play", "RefereeServer",
-    '/check', "RefereeServer",
-    "/ping", "RefereeServer"
-)
 
 class RefereeServer(object):
     """
@@ -24,7 +19,7 @@ class RefereeServer(object):
         self.worker = RefereeWorker()
 
     def GET(self):
-        json.dumps(server_info())
+        return json.dumps(server_info())
 
     def POST(self):
         """
@@ -63,9 +58,13 @@ class RefereeServer(object):
         return {'ret': 'ServerError',
                 'data': 'Invalid'}
 
-    @staticmethod
-    def get_web_app():
-        app = web.application(urls, globals())
-        wsgiapp = app.wsgifunc()
-        # gunicorn -w 4 -b 0.0.0.0:8080 server:wsgiapp
-        return app, wsgiapp
+
+urls = (
+    "/play", "RefereeServer",
+    '/check', "RefereeServer",
+    "/ping", "RefereeServer"
+)
+# gunicorn -w 4 -b 0.0.0.0:8080 server:wsgiapp
+
+app = web.application(urls, globals())
+wsgiapp = app.wsgifunc()
