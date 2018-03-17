@@ -1,12 +1,13 @@
 # coding=utf-8
 import json
 import psutil
-import threading
 import subprocess
-import queue
-from multiprocessing import Pool
-from .utils import InitSubmissionEnv
+import redis
+import time
+from multiprocessing import Pool, Process
+from .utils import InitSubmissionEnv,get_message_from_redis
 from .configure import MATCH_LOG_FILE_BASE_DIR
+
 DEBUG_MATCH_INFO_EXAMPLE = {
     'gameID': '10112323123',  # just ID number
     'game': 'dealer_renju',  # name of the game
@@ -23,69 +24,7 @@ DEBUG_MATCH_INFO_EXAMPLE = {
 STATUS_LIST = ['waiting', 'ongoing', 'success', 'failed']
 
 
-def _start_one_match(instance, task_info):
-    return instance.start_one_match(task_info)
-
-
-class JobThread(threading.Thread):
-
-    def __init__(self, queue, cmd, game_id):
-
-        """
-        工作线程
-        开启一个临时的文件路径存放log file
-        开启游戏进程，并利用PIPE获得游戏打开传出的端口号并保存后notify
-        最后读取log file中的结果保存
-        临时文件删除
-        :param queue:
-        :param cmd: 命令行LIST
-        :param game_id: 对局ID
-        :return:
-        """
-        threading.Thread.__init__(self)
-        self._queue = queue
-        self.cmd = cmd
-        self.game_id = game_id
-        self.status = 'pending'
-
-    def from_match_log(self, log_path):
-        """
-        作文件操作，从log文件读取对局得分
-        :param log_path:
-        :return: 对局得分String
-        """
-        result = 'not finished yet!'
-        if self.status is STATUS_LIST[2]:
-            file = open(log_path)
-            lines = file.readlines()
-            result = lines[-1]
-        return result
-
-    def run(self):
-        print('trying to create worker thread! ')
-        with InitSubmissionEnv(MATCH_LOG_FILE_BASE_DIR, self.game_id) as dir:
-            p = subprocess.Popen(self.cmd, shell=False, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-            first = False
-            print('start working')
-            while p.poll() is None:
-                line = p.stdout.readline()
-                print(line)
-                if not first:
-                    first = True
-                    line = line.decode('utf-8')
-                    ports = line.strip().split()
-                    print(ports)
-                    print('notify condition from game process')
-                    self._queue.put(ports)
-            if p.returncode == 0:
-                self.status = STATUS_LIST[2]
-            else:
-                self.status = STATUS_LIST[3]
-            self.from_match_log(dir)
-        print('thread exiting')
-
-
-class Task(object):
+class Task(Process):
     """
     完成单个对局进程
     保存对局信息
@@ -97,26 +36,39 @@ class Task(object):
         这里主要是一个线程的Condition初始化
         :param match_info:对局信息例子见DEBUG_MATCH_INFO_EXAMPLE
         """
+        Process.__init__(self)
         self.status = STATUS_LIST[0]
         self.log_path = MATCH_LOG_FILE_BASE_DIR
-        self._queue = queue.Queue()
-        self.worker = None
-        self.game_id = match_info['game_id']
+        self.game_id = match_info['gameID']
         self.cmd, self.log_path = self._prepare_for_work(match_info)
-        print('task init!!!')
+        self.redis_server = redis.StrictRedis()  # using default at debug stage
+        self.pubsub = self.redis_server.pubsub(ignore_subscribe_messages=True)
+        self.pubsub.subscribe(self.game_id)
 
     def run(self):
-        """
-        开启游戏线程，并利用线程Condition完成异步同步实现端口List的获取
-        :return:端口List
-        """
-        print('creating work thread')
-        self.worker = JobThread(self._queue, cmd=self.cmd, game_id=self.game_id)
-        self.worker.start()
-        ports = self._queue.get()
-        print('return ports')
-        print(ports)
-        return ports
+        print('trying to create worker thread! ')
+        with InitSubmissionEnv(MATCH_LOG_FILE_BASE_DIR, self.game_id) as temp_dir:
+            with open(temp_dir+'/game_detail.txt', 'w+') as file:
+                p = subprocess.Popen(self.cmd, shell=False, stdout=file)
+                first = False
+                while p.poll() is None:
+                    if not first:
+                        first = True
+                        file_read = open(temp_dir+'/game_detail.txt', 'r+')
+                        while True:
+                            line = file_read.readline().strip()
+                            if line != '':
+                                print(line)
+                                break
+                            else:
+                                time.sleep(0.01)
+                        self.redis_server.publish(self.game_id, line)
+                if p.returncode == 0:
+                    self.status = STATUS_LIST[2]
+                else:
+                    self.status = STATUS_LIST[3]
+                self.from_match_log(temp_dir)
+            print('thread exiting')
 
     @staticmethod
     def _prepare_for_work(match_info):
@@ -128,14 +80,10 @@ class Task(object):
         # shell_cmd = './dealer_renju asdddd 1000 Alice Bob'
         # cmd = shlex.split(shell_cmd)
         cmd = []
-        print(match_info)
         log_path = MATCH_LOG_FILE_BASE_DIR + match_info['gameID'] + '/' + match_info['game']
         cmd.append(match_info['game'])
         cmd.append(log_path)
         if match_info['if_poker'] != 'False':
-            print('checking bool in prepare')
-            print(match_info['if_poker'] is not 'False')
-            print(match_info['if_poker'] == 'False')
             cmd.append(match_info['game_define'])
         cmd.append(match_info['rounds'])
         if match_info['random_seed'] != 'False':
@@ -144,12 +92,21 @@ class Task(object):
         for player in players:
             for key, val in player.items():
                 cmd.append(val)
-        print("creating cmd:")
-        print(cmd)
         return cmd, log_path
 
-    def get_status(self):
-        return self.worker.status
+    def from_match_log(self, log_path):
+        """
+        作文件操作，从log文件读取对局得分
+        :param log_path:
+        :return: 对局得分String
+        """
+        result = 'NONE'
+        if self.status is STATUS_LIST[2]:
+            file = open(log_path)
+            lines = file.readlines()
+            result = lines[-1]
+        print('from_match_log', result)
+        self.redis_server.publish(self.game_id, result)
 
 
 REFEREE_RET_EXAMPLE = {
@@ -172,20 +129,19 @@ class RefereeWorker(object):
         便于获取游戏的结果
         """
         self._pool = Pool(psutil.cpu_count()*100)
-        self.task_queue = dict()
+        self.redis_server = redis.StrictRedis()
+        self.pubsub = self.redis_server.pubsub(ignore_subscribe_messages=True)
 
-    @staticmethod
-    def start_one_match(task_info):
+    def start_one_match(self, task_info):
         """
         完成一次对局
         开启对局后，马上返回游戏的端口号供用户连接或者是预置AI
         :param task_info: 开启游戏，需要的信息，例子：DEBUG_JSON
         :return: 返回端口List，任务对象
         """
-        task = Task()
-        port = task.run(task_info)
-        print("Finishing start_one_match",port)
-        return port, task
+        task = Task(task_info)
+        task.start()
+        task.join()
 
     def query_task_result(self, task_info):
         """
@@ -194,19 +150,20 @@ class RefereeWorker(object):
         :return:如果游戏完成，返回得分，否则返回游戏当前的状态，score为False
         example:result = {'status': 'success', 'score': 'False'}
         """
-        game_id = task_info['gameID']
         try:
-            task = self.task_queue[game_id]
+            game_id = task_info['gameID']
+            self.redis_server.publish(game_id, 'get_game_status')
         except KeyError:
             return {
                 'status': 'no exist',
                 'score': 'False'
             }
         result = dict()
-        result['status'] = task.get_status()
-        if result['status'] is STATUS_LIST[2]:
-            result['score'] = task.result
-            del self.task_queue[game_id]
+        status_from_task = get_message_from_redis(self.redis_server, self.pubsub, game_id)
+        if status_from_task['status'] is STATUS_LIST[2]:
+            result['status'] = STATUS_LIST[2]
+            result['score'] = status_from_task['score']
+            self.pubsub.unsubscribe(game_id)
         else:
             result['score'] = 'False'
         return json.dumps(result)
@@ -219,13 +176,19 @@ class RefereeWorker(object):
         :param task_info: 开启游戏，需要的信息，例子：DEBUG_JSON
         :return: example: result = {'status': 'ongoing', 'ports': { 'player1_port': '12311', 'player2_port': '12222' }}
         """
-        result = self._pool.apply_async(self.start_one_match, args=(task_info,))
-        result.wait()
-        port, task = result.get()
-        self.task_queue[task_info['gameID']] = task
+        self.pubsub.subscribe(task_info['gameID'])
+        #self.start_one_match(task_info)
+        task = Task(task_info)
+        task.start()
+        print('starting finished')
+        #self._pool.apply_async()
+        status_from_task = get_message_from_redis(self.redis_server, self.pubsub, task_info['gameID'])
+        print(status_from_task)
+        port = status_from_task['port'].split()
+        print("Finishing start_one_match", port)
         result = dict()
         ports = dict()
-        result['status'] = task.get_status()
+        result['status'] = 'ongoing'
         for i in range(len(port)):
             ports['player%d_port' % i] = port[i]
         result['ports'] = ports

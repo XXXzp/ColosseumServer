@@ -1,3 +1,4 @@
+# coding:utf-8
 import urllib
 import http.client
 import requests
@@ -20,7 +21,10 @@ DEBUG_JSON = {
 }
 kwargs = {"headers": {"X-Judge-Server-Token": None}}
 kwargs["json"] = DEBUG_JSON
-print(requests.post('0.0.0.0:8080/play',**kwargs).json())
+url = 'http://0.0.0.0:8080'
+p2 = requests.get(url,params=DEBUG_JSON)
+p1 = requests.post(url,params=DEBUG_JSON)
+print(p1.json())
 #h1 = http.client.HTTPConnection('0.0.0.0/play', 8080)
 #h2 = http.client.HTTPConnection('0.0.0.0/check', 8080)
 #h3 = http.client.HTTPConnection('0.0.0.0/ping', 8080)

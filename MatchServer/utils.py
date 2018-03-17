@@ -19,6 +19,18 @@ logger.setLevel(logging.WARNING)
 DEBUG = True
 
 
+def get_message_from_redis(redis_server, pubsub, channel):
+    print('start listening')
+    message = redis_server.get(channel)
+    redis_server.delete(channel)
+    if message:
+        return message
+    for message in pubsub.listen():
+        if message['channel'] != channel:
+            redis_server.set(channel, message['data'])
+        else:
+            return message['data']
+
 def server_info():
     """
     利用python的几个模块完成服务器信息的获取

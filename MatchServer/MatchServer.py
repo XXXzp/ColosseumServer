@@ -29,7 +29,7 @@ class MatchServerHandler(BaseHTTPRequestHandler):
         """
         data = server_info()
         data["action"] = "pong"
-        return data
+        return json.dumps(data)
 
     def do_GET(self):
         info_server = server_info()
