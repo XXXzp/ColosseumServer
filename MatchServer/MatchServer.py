@@ -18,8 +18,8 @@ class MatchServerHandler(BaseHTTPRequestHandler):
 
     @staticmethod
     def send_error_info():
-        return {'ret': 'ServerError',
-                'data': 'Invalid'}
+        return json.dumps({'ret': 'ServerError',
+                'data': 'Invalid'})
 
     @staticmethod
     def pong():
