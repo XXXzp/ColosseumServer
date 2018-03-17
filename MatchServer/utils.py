@@ -49,11 +49,13 @@ class InitSubmissionEnv(object):
     """
     def __init__(self, workspace, match_id):
         self.path = os.path.join(workspace, match_id)
+        print(self.path)
 
     def __enter__(self):
         try:
-            os.mkdir(self.path)
-            os.chmod(self.path, 0o777)
+            os.makedirs(self.path)
+        except FileExistsError as file_exist_error:
+            print(file_exist_error)
         except Exception:
             raise MatchInitError("failed to create runtime dir")
         return self.path
