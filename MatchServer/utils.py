@@ -2,7 +2,7 @@
 import psutil
 import socket
 import os
-
+import redis
 import shutil
 
 from .exception import MatchClientError, MatchInitError
@@ -19,8 +19,18 @@ logger.setLevel(logging.WARNING)
 DEBUG = True
 
 
+def redis_init():
+    """
+    开启进程池，由于每一个游戏实际使用的CPU资源并不高，所以并发量设置在了CPU核数*100
+    以及一个Task队列，这个队列是保存了gameID:task的字典
+    便于获取游戏的结果
+    """
+    redis_server = redis.StrictRedis()
+    pubsub = redis_server.pubsub(ignore_subscribe_messages=True)
+    return redis_server, pubsub
+
+
 def get_message_from_redis(redis_server, pubsub, channel):
-    print('start listening')
     message = redis_server.get(channel)
     redis_server.delete(channel)
     if message:
@@ -30,6 +40,7 @@ def get_message_from_redis(redis_server, pubsub, channel):
             redis_server.set(channel, message['data'])
         else:
             return message['data']
+
 
 def server_info():
     """
