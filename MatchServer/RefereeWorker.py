@@ -8,7 +8,6 @@ DEBUG_MATCH_INFO_EXAMPLE = {
     'NPC': 'starter',  # 'False' 'starter' 'master' 'Godlike'
     'rounds': '1000',
     'random_seed': 'False',  # 'False' 'int'
-    'if_poker': 'False',  # Special in poker game
     'game_define': 'False',  # for poker game define file is required
     'players': [
         {'name_1': 'Alice'},
@@ -34,8 +33,8 @@ def query_task_result(task_info):
     redis_server, pubsub = redis_init()
     pubsub.subscribe(task_info['gameID'])
     try:
-        game_id = task_info['gameID']
-        status_from_task = get_message_from_redis(redis_server, pubsub, game_id)
+        query_key = task_info['gameID'] + 'FINAL_RESULT'
+        status_from_task = redis_server.get(query_key)
     except KeyError:
         return {
             'status': 'no exist',
@@ -45,7 +44,6 @@ def query_task_result(task_info):
     if status_from_task['status'] is STATUS_LIST[2]:
         result['status'] = STATUS_LIST[2]
         result['score'] = status_from_task['score']
-        pubsub.unsubscribe(game_id)
     else:
         result['score'] = 'False'
     return json.dumps(result)
@@ -72,3 +70,7 @@ def accept_task(task_info):
         ports['player%d_port' % i] = port[i]
     result['ports'] = ports
     return json.dumps(result)
+
+
+def cleanup_db():
+    pass

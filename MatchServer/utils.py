@@ -32,7 +32,6 @@ def redis_init():
 
 def get_message_from_redis(redis_server, pubsub, channel):
     message = redis_server.get(channel)
-    redis_server.delete(channel)
     if message:
         return message
     for message in pubsub.listen():

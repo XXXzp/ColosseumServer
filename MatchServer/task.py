@@ -1,9 +1,7 @@
 import time
-import redis
 import subprocess
-from .utils import InitSubmissionEnv
+from .utils import InitSubmissionEnv, redis_init
 from .configure import MATCH_LOG_FILE_BASE_DIR
-
 
 STATUS_LIST = ['waiting', 'ongoing', 'success', 'failed']
 
@@ -11,8 +9,7 @@ STATUS_LIST = ['waiting', 'ongoing', 'success', 'failed']
 def game_task_run(match_info):
     game_id = match_info['gameID']
     cmd, log_path = _prepare_for_work(match_info)
-    redis_server = redis.StrictRedis()  # using default at debug stage
-    pubsub = redis_server.pubsub(ignore_subscribe_messages=True)
+    redis_server, pubsub = redis_init()
     pubsub.subscribe(game_id)
     with InitSubmissionEnv(MATCH_LOG_FILE_BASE_DIR, game_id) as temp_dir:
         with open(temp_dir+'/game_detail.txt', 'w+') as file:
@@ -38,7 +35,7 @@ def _prepare_for_work(match_info):
     log_path = MATCH_LOG_FILE_BASE_DIR + match_info['gameID'] + '/' + match_info['game']
     cmd.append(match_info['game'])
     cmd.append(log_path)
-    if match_info['if_poker'] != 'False':
+    if match_info['game_define'] != 'False':
         cmd.append(match_info['game_define'])
     cmd.append(match_info['rounds'])
     if match_info['random_seed'] != 'False':
@@ -55,4 +52,10 @@ def _from_match_log(redis_server, game_id, status, log_path):
         file = open(log_path)
         lines = file.readlines()
         result = lines[-1]
-        redis_server.publish(game_id, result)
+        redis_server.set(game_id + 'FINAL_RESULT', result)
+    else:
+        redis_server.set(game_id + 'FINAL_RESULT', status)
+
+
+def _record_match_detail(redis_server, file):
+    pass
