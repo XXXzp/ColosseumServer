@@ -1,3 +1,4 @@
+# coding=utf-8
 from MatchServer.MatchServer import MatchServerHandler
 from http.server import HTTPServer
 from socketserver import ForkingMixIn
