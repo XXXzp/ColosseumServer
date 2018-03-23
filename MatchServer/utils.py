@@ -4,17 +4,17 @@ import socket
 import os
 import redis
 import shutil
-
+import logging
 from .exception import MatchClientError, MatchInitError
 
-'''
+
 logger = logging.getLogger(__name__)
-handler = logging.FileHandler("/log/judge_server.log")
+handler = logging.FileHandler("log/ColosServer.log")
 formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.WARNING)
-'''
+
 
 DEBUG = True
 
@@ -78,7 +78,8 @@ class InitSubmissionEnv(object):
             os.makedirs(self.path)
         except FileExistsError as file_exist_error:
             print(file_exist_error)
-        except Exception:
+        except Exception as e:
+            logger.exception(e)
             raise MatchInitError("failed to create runtime dir")
         return self.path
 
@@ -88,3 +89,11 @@ class InitSubmissionEnv(object):
                 shutil.rmtree(self.path)
             except Exception:
                 raise MatchInitError("failed to clean runtime dir")
+
+
+class GameStatus:
+    WAITING = 'waiting'
+    ONGOING = 'ongoing'
+    SUCCESS = 'success'
+    FAILED = 'failed'
+

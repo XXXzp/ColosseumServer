@@ -1,9 +1,8 @@
 import time
 import subprocess
-from .utils import InitSubmissionEnv, redis_init
+from .exception import MatchInitError
+from .utils import InitSubmissionEnv, redis_init, GameStatus, logger
 from .configure import MATCH_LOG_FILE_BASE_DIR
-
-STATUS_LIST = ['waiting', 'ongoing', 'success', 'failed']
 
 
 def game_task_run(match_info):
@@ -11,23 +10,27 @@ def game_task_run(match_info):
     cmd, log_path = _prepare_for_work(match_info)
     redis_server, pubsub = redis_init()
     pubsub.subscribe(game_id)
-    with InitSubmissionEnv(MATCH_LOG_FILE_BASE_DIR, game_id) as temp_dir:
-        with open(temp_dir+'/game_detail.txt', 'w+') as file:
-            file.truncate()
-            p = subprocess.Popen(cmd, shell=False, stdout=file, stderr=file)
-            file_read = open(temp_dir+'/game_detail.txt', 'r+')
-            while True:
-                line = file_read.readline().strip()
-                if line != '':
-                    break
+    try:
+        with InitSubmissionEnv(MATCH_LOG_FILE_BASE_DIR, game_id) as temp_dir:
+            with open(temp_dir+'/game_detail.txt', 'w+') as file:
+                file.truncate()
+                p = subprocess.Popen(cmd, shell=False, stdout=file, stderr=file)
+                file_read = open(temp_dir+'/game_detail.txt', 'r+')
+                while True:
+                    line = file_read.readline().strip()
+                    if line != '':
+                        break
+                    else:
+                        time.sleep(0.01)
+                redis_server.publish(game_id, line)
+                p.wait()
+                if p.returncode == 0:
+                    status = GameStatus.SUCCESS
                 else:
-                    time.sleep(0.01)
-            redis_server.publish(game_id, line)
-            if p.returncode == 0:
-                status = STATUS_LIST[2]
-            else:
-                status = STATUS_LIST[3]
-            _from_match_log(redis_server, game_id, status, temp_dir)
+                    status = GameStatus.FAILED
+                _from_match_log(redis_server, game_id, status, temp_dir)
+    except MatchInitError as e:
+        logger.exception(e)
 
 
 def _prepare_for_work(match_info):
@@ -48,11 +51,14 @@ def _prepare_for_work(match_info):
 
 
 def _from_match_log(redis_server, game_id, status, log_path):
-    if status is STATUS_LIST[2]:
-        file = open(log_path)
-        lines = file.readlines()
-        result = lines[-1]
-        redis_server.set(game_id + 'FINAL_RESULT', result)
+    if status is GameStatus.SUCCESS:
+        try:
+            file = open(log_path)
+            lines = file.readlines()
+            result = lines[-1]
+            redis_server.set(game_id + 'FINAL_RESULT', result)
+        except FileNotFoundError as e:
+            logger.exception(e)
     else:
         redis_server.set(game_id + 'FINAL_RESULT', status)
 

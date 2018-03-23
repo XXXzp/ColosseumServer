@@ -1,6 +1,6 @@
 # coding=utf-8
 import json
-from .utils import get_message_from_redis, redis_init
+from .utils import get_message_from_redis, redis_init, GameStatus
 from .task import game_task_run
 DEBUG_MATCH_INFO_EXAMPLE = {
     'gameID': '10112323123',  # just ID number
@@ -14,12 +14,16 @@ DEBUG_MATCH_INFO_EXAMPLE = {
         {'name_2': 'Bob'}
     ]
 }
-STATUS_LIST = ['waiting', 'ongoing', 'success', 'failed']
 
 
 REFEREE_RET_EXAMPLE = {
     'status': 'success',  # Task.STATUS  and   'game no exist'
     'score': 'SCORE:47|53:a|b'  # False if game is no success
+}
+
+CONFLICT_RET = {
+    'status': 'ongoing',
+    'ports': 'GAME EXIST ERROR',
 }
 
 
@@ -41,8 +45,8 @@ def query_task_result(task_info):
             'score': 'False'
         }
     result = dict()
-    if status_from_task['status'] is STATUS_LIST[2]:
-        result['status'] = STATUS_LIST[2]
+    if status_from_task['status'] is GameStatus.SUCCESS:
+        result['status'] = GameStatus.SUCCESS
         result['score'] = status_from_task['score']
     else:
         result['score'] = 'False'
@@ -58,6 +62,8 @@ def accept_task(task_info):
     :return: example: result = {'status': 'ongoing', 'ports': { 'player1_port': '12311', 'player2_port': '12222' }}
     """
     redis_server, pubsub = redis_init()
+    if not redis_server.get(task_info['gameID']):  # 防止同一GameID多次请求
+        return json.dumps(CONFLICT_RET)
     pubsub.subscribe(task_info['gameID'])
     game_task_run(task_info)
     status_from_task = get_message_from_redis(redis_server, pubsub, task_info['gameID'])
