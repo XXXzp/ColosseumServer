@@ -7,6 +7,8 @@ MATCH_WORKSPACE_BASE = "/match_run"
 LOG_BASE = "/log"
 MATCH_LOG_FILE_BASE_DIR = '/tmp/Colosseum/'
 
+GAME_DETAILS_FILE_NAME = '/game_detail.txt'
+
 COMPILER_LOG_PATH = os.path.join(LOG_BASE, "compile.log").encode("utf-8")
 MATCH_RUN_LOG_PATH = os.path.join(LOG_BASE, "match.log").encode("utf-8")
 

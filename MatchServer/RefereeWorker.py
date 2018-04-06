@@ -1,30 +1,7 @@
 # coding=utf-8
 import json
-from .utils import get_message_from_redis, redis_init, GameStatus
-from .task import game_task_run
-DEBUG_MATCH_INFO_EXAMPLE = {
-    'gameID': '10112323123',  # just ID number
-    'game': 'dealer_renju',  # name of the game
-    'NPC': 'starter',  # 'False' 'starter' 'master' 'Godlike'
-    'rounds': '1000',
-    'random_seed': 'False',  # 'False' 'int'
-    'game_define': 'False',  # for poker game define file is required
-    'players': [
-        {'name_1': 'Alice'},
-        {'name_2': 'Bob'}
-    ]
-}
-
-
-REFEREE_RET_EXAMPLE = {
-    'status': 'success',  # Task.STATUS  and   'game no exist'
-    'score': 'SCORE:47|53:a|b'  # False if game is no success
-}
-
-CONFLICT_RET = {
-    'status': 'ongoing',
-    'ports': 'GAME EXIST ERROR',
-}
+from .utils import get_message_from_redis, redis_init, GameStatus, logger, CONFLICT_RET
+from .task import game_task_run, query_state_and_score_from_log_file
 
 
 def query_task_result(task_info):
@@ -34,22 +11,15 @@ def query_task_result(task_info):
     :return:如果游戏完成，返回得分，否则返回游戏当前的状态，score为False
     example:result = {'status': 'success', 'score': 'False'}
     """
-    redis_server, pubsub = redis_init()
-    pubsub.subscribe(task_info['gameID'])
+    result = dict()
     try:
-        query_key = task_info['gameID'] + 'FINAL_RESULT'
-        status_from_task = redis_server.get(query_key)
-    except KeyError:
+        result['status'], result['score'] = query_state_and_score_from_log_file(task_info['gameID'])
+    except FileNotFoundError as e:
+        logger.exception(e)
         return {
             'status': 'no exist',
             'score': 'False'
         }
-    result = dict()
-    if status_from_task['status'] is GameStatus.SUCCESS:
-        result['status'] = GameStatus.SUCCESS
-        result['score'] = status_from_task['score']
-    else:
-        result['score'] = 'False'
     return json.dumps(result)
 
 
@@ -62,19 +32,16 @@ def accept_task(task_info):
     :return: example: result = {'status': 'ongoing', 'ports': { 'player1_port': '12311', 'player2_port': '12222' }}
     """
     redis_server, pubsub = redis_init()
-    if not redis_server.get(task_info['gameID']):  # 防止同一GameID多次请求
+    if redis_server.get(task_info['gameID']):  # 防止同一GameID多次请求
         return json.dumps(CONFLICT_RET)
-    pubsub.subscribe(task_info['gameID'])
-    game_task_run(task_info)
-    status_from_task = get_message_from_redis(redis_server, pubsub, task_info['gameID'])
-    pubsub.unsubscribe(task_info['gameID'])
-    port = status_from_task.decode('utf-8').split()
+    ports = game_task_run(task_info)
+    redis_server.set(task_info['gameID'], ports)
     result = dict()
-    ports = dict()
+    port_dict = dict()
     result['status'] = 'ongoing'
-    for i in range(len(port)):
-        ports['player%d_port' % i] = port[i]
-    result['ports'] = ports
+    for i in range(len(ports)):
+        port_dict['player%d_port' % i] = ports[i]
+    result['ports'] = port_dict
     return json.dumps(result)
 
 

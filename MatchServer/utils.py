@@ -18,6 +18,11 @@ logger.setLevel(logging.WARNING)
 
 DEBUG = True
 
+CONFLICT_RET = {
+    'status': 'ongoing',
+    'ports': 'GAME EXIST ERROR',
+}
+
 
 def redis_init():
     """
@@ -30,15 +35,9 @@ def redis_init():
     return redis_server, pubsub
 
 
-def get_message_from_redis(redis_server, pubsub, channel):
-    message = redis_server.get(channel)
-    if message:
-        return message
+def get_message_from_redis(pubsub):
     for message in pubsub.listen():
-        if message['channel'] != channel:
-            redis_server.set(channel, message['data'])
-        else:
-            return message['data']
+        return message['data']
 
 
 def server_info():
@@ -63,6 +62,13 @@ def get_token():
 
 # token = hashlib.sha256(get_token()).hexdigest()
 
+def clean_tmp_dir(path):
+    try:
+        shutil.rmtree(path)
+    except Exception as e:
+        logger.exception(e)
+        raise MatchInitError("failed to clean runtime dir")
+
 
 class InitSubmissionEnv(object):
     """
@@ -71,13 +77,12 @@ class InitSubmissionEnv(object):
     """
     def __init__(self, workspace, match_id):
         self.path = os.path.join(workspace, match_id)
-        print(self.path)
 
     def __enter__(self):
         try:
             os.makedirs(self.path)
         except FileExistsError as file_exist_error:
-            print(file_exist_error)
+            logger.exception(file_exist_error)
         except Exception as e:
             logger.exception(e)
             raise MatchInitError("failed to create runtime dir")
@@ -89,6 +94,8 @@ class InitSubmissionEnv(object):
                 shutil.rmtree(self.path)
             except Exception:
                 raise MatchInitError("failed to clean runtime dir")
+
+
 
 
 class GameStatus:

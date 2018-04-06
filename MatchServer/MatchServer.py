@@ -5,12 +5,6 @@ from http.server import BaseHTTPRequestHandler
 from .utils import server_info
 from .RefereeWorker import query_task_result, accept_task
 
-RESULT = {
-    'status': 'ongoing',
-    'score': 'False',
-    'xxx': 12312
-}
-
 
 class MatchServerHandler(BaseHTTPRequestHandler):
 

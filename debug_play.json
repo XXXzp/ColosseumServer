@@ -1,0 +1,12 @@
+{
+    "gameID": "23121ss1111112",
+    "game": "dealer_renju",
+    "NPC": "starter",
+    "rounds": "1000",
+    "random_seed": "False",
+    "game_define": "False",
+    "players": [
+        {"name_1": "Alice"},
+        {"name_2": "Bob"}
+    ]
+}
