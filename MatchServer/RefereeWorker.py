@@ -13,13 +13,14 @@ def query_task_result(task_info):
     """
     result = dict()
     try:
-        result['status'], result['score'] = query_state_and_score_from_log_file(task_info['gameID'])
+        result['status'], result['score'], result['description'] = query_state_and_score_from_log_file(task_info['gameID'],task_info['game'])
     except FileNotFoundError as e:
         logger.exception(e)
-        return {
-            'status': 'no exist',
-            'score': 'False'
-        }
+        return json.dumps({
+            'status': 'FILE NO FOUND OR GAME ID ERROR',
+            'score': 'False',
+            'description':'False'
+        })
     return json.dumps(result)
 
 

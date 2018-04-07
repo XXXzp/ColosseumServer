@@ -102,5 +102,6 @@ class GameStatus:
     WAITING = 'waiting'
     ONGOING = 'ongoing'
     SUCCESS = 'success'
+    TIMEOUT = 'timeout'
     FAILED = 'failed'
 
