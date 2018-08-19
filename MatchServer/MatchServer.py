@@ -3,7 +3,7 @@ import json
 import re
 from http.server import BaseHTTPRequestHandler
 from .utils import server_info
-from .RefereeWorker import query_task_result, accept_task
+from .RefereeWorker import query_task_result, accept_task, kill_by_id
 
 
 class MatchServerHandler(BaseHTTPRequestHandler):
@@ -41,8 +41,8 @@ class MatchServerHandler(BaseHTTPRequestHandler):
                     result = accept_task(data)
                 elif re.search('/check', self.path):
                     result = query_task_result(data)
-                elif re.search('/ping', self.path):
-                    result = self.pong()
+                elif re.search('/kill', self.path):
+                    result = kill_by_id(data)
                 else:
                     result = self.send_error_info()
         else:

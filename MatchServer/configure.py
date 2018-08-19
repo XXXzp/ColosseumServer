@@ -6,7 +6,7 @@ import pwd  # password database
 MATCH_WORKSPACE_BASE = "/match_run"
 LOG_BASE = "/log"
 MATCH_LOG_FILE_BASE_DIR = '/tmp/Colosseum/'
-
+POKER_DEFINE_FILES_DIR = 'poker_defines/'
 GAME_DETAILS_FILE_NAME = '/game_detail.txt'
 
 COMPILER_LOG_PATH = os.path.join(LOG_BASE, "compile.log").encode("utf-8")

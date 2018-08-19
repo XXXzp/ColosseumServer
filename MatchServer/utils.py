@@ -6,6 +6,7 @@ import redis
 import shutil
 import logging
 from .exception import MatchClientError, MatchInitError
+from .configure import MATCH_LOG_FILE_BASE_DIR, GAME_DETAILS_FILE_NAME, POKER_DEFINE_FILES_DIR
 
 
 logger = logging.getLogger(__name__)
@@ -20,7 +21,13 @@ DEBUG = True
 
 CONFLICT_RET = {
     'status': 'ongoing',
-    'ports': 'GAME EXIST ERROR',
+    'ports': 'GAME EXIST ERROR'
+}
+
+
+ERROR_INIT_RET = {
+    'status': 'error',
+    'ports': 'bad request format or check if ports are available'
 }
 
 
@@ -31,13 +38,57 @@ def redis_init():
     便于获取游戏的结果
     """
     redis_server = redis.StrictRedis()
-    pubsub = redis_server.pubsub(ignore_subscribe_messages=True)
-    return redis_server, pubsub
+    return redis_server
 
 
 def get_message_from_redis(pubsub):
     for message in pubsub.listen():
         return message['data']
+
+
+def get_log_path(game_id, game_type, if_init=True):
+    log_path = MATCH_LOG_FILE_BASE_DIR + game_id + '/' + game_type + 'log_file'
+    if if_init:
+        return log_path
+    else:
+        return log_path + '.log'
+
+
+def get_transaction_path(game_id, game_type, if_init=True):
+    transaction_path = MATCH_LOG_FILE_BASE_DIR + game_id + '/' + \
+                           game_type + 'transaction_file'
+    if if_init:
+        return transaction_path
+    else:
+        return transaction_path + '.log'
+
+
+def get_game_detail_path(game_id):
+    return MATCH_LOG_FILE_BASE_DIR+game_id+'/'+GAME_DETAILS_FILE_NAME
+
+
+def get_pid_key(game_id):
+    return game_id + 'pid'
+
+
+def get_game_define_path(game_define):
+    path = POKER_DEFINE_FILES_DIR + game_define
+    if os.path.exists(path):
+        return path
+    else:
+        return None
+
+
+def check_pid(pid):
+    """ Check For the existence of a unix pid. """
+    if not pid:
+        return False
+    try:
+        os.kill(int(pid), 0)
+    except OSError:
+        return False
+    else:
+        return True
 
 
 def server_info():
@@ -96,9 +147,8 @@ class InitSubmissionEnv(object):
                 raise MatchInitError("failed to clean runtime dir")
 
 
-
-
 class GameStatus:
+
     WAITING = 'waiting'
     ONGOING = 'ongoing'
     SUCCESS = 'success'
