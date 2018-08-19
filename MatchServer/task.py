@@ -124,7 +124,7 @@ def query_state_and_score_from_log_file(game_id, game_name):
             else:
                 return GameStatus.WAITING, "False", 'the Game hasnt started yet'
             
-        if last_line_list[0] == 'MATCH' or last_line_list[0][0] == '#':  # 或者说写死这里不太好？  注意一下！！
+        if last_line_list[0] == 'MATCH' or last_line_list[0] == 'STATE' or last_line_list[0][0] == '#':  # 或者说写死这里不太好？  注意一下！！
             # 尽管最后一行是match，仍可能是超时，或者错误
             with open(get_game_detail_path(game_id), 'rb+') as file_game_detail:
                 timeout_flag = False
