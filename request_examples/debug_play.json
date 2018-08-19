@@ -1,0 +1,24 @@
+{
+    "gameID": "10112323123",
+    "game": "dealer_poker",
+    "NPC": "starter",
+    "rounds": "100",
+    "random_seed": "0",
+    "game_define": "holdem.limit.2p.reverse_blinds.game",
+    "t_response":"600000",
+    "t_hand": "60000",
+    "t_per_hand":"7000",
+    "wait_time_out":"1000000000000",
+    "keep_transaction":"True",
+    "fixed_ports": {
+        "if_fixed":"False",
+        "ports":[
+            {"port_1":"12345"},
+            {"port_2":"23456"}
+            ]
+    },
+    "players": [
+        {"name_1": "Alice"},
+        {"name_2": "Bob"}
+    ]
+}
