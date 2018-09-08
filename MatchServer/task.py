@@ -110,13 +110,30 @@ def game_process_control(pid, action):
         print(e)
         return 'Unknown Error'
 
+def retrive_game_log_from_file(game_id, game_name):
+    result = dict()
+    with open(get_log_path(game_id, game_name, False), 'r+') as file_game_log:
+        match_logs = file_game_log.readlines()
+        if match_logs:
+            last_line_list = match_logs[-1].strip('\n').split(':')
+        else:
+            return None
+        if last_line_list[0] == 'SCORE':
+            scores = list(map(int, last_line_list[1].split('|')))
+            result['score'] = str(scores)
+            result['winner'] = last_line_list[2].split('|')[scores.index(max(scores))]
+            result['games'] = list(map(lambda x:x.strip('\n'),match_logs[4:-1]))  # skip connection info and final result
+            return result
+        else:
+            return None
+
 
 def query_state_and_score_from_log_file(game_id, game_name):
     with open(get_log_path(game_id, game_name, False), 'r+') as file_game_log:
-        game_logs = file_game_log.readlines()
+        match_logs = file_game_log.readlines()
 
-        if game_logs:
-            last_line_list = game_logs[-1].strip('\n').split(':')
+        if match_logs:
+            last_line_list = match_logs[-1].strip('\n').split(':')
         else:
             # 开启游戏进程但没有玩家连接对局是没有game log的，但是存在game detail文件
             if os.path.exists(get_game_detail_path(game_id)):
@@ -141,7 +158,7 @@ def query_state_and_score_from_log_file(game_id, game_name):
                     elif re.search("WARRNING", line_decode):
                         return GameStatus.ONGOING, 'False', line_decode
                     else:
-                        return GameStatus.ONGOING, "False", game_logs[-1]
+                        return GameStatus.ONGOING, "False", match_logs[-1]
 
         elif last_line_list[0] == 'SCORE':
             # SCORE:489|511:Alice|Bob

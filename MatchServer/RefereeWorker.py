@@ -1,7 +1,7 @@
 # coding=utf-8
 import json
 from .utils import redis_init, logger, CONFLICT_RET, get_pid_key, ERROR_INIT_RET, check_pid
-from .task import game_task_run, query_state_and_score_from_log_file, game_process_control
+from .task import game_task_run, query_state_and_score_from_log_file, game_process_control, retrive_game_log_from_file
 
 
 def query_task_result(task_info):
@@ -79,6 +79,17 @@ def kill_by_id(task_info):
         task_info['description'] = 'Unexpected Error'
         return json.dumps(task_info)
 
+
+def search_record(task_info):
+    result = retrive_game_log_from_file(task_info['gameID'], task_info['game'])
+    if result:
+        return json.dumps(result)
+    else:
+        return json.dumps({
+            'winner': 'False',
+            'score': 'False',
+            'games': []
+        })
 
 def cleanup_db():
     pass

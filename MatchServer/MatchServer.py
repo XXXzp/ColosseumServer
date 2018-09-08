@@ -2,8 +2,8 @@
 import json
 import re
 from http.server import BaseHTTPRequestHandler
-from .utils import server_info
-from .RefereeWorker import query_task_result, accept_task, kill_by_id
+from .utils import server_info,logger
+from .RefereeWorker import query_task_result, accept_task, kill_by_id, search_record
 
 
 class MatchServerHandler(BaseHTTPRequestHandler):
@@ -31,21 +31,26 @@ class MatchServerHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(message, encoding='utf-8'))
 
     def do_POST(self):
-        result = ""
+        result = None
         if re.search('/api', self.path):
-            if self.headers.get_params()[0][0] == 'application/json':
-                length = int(self.headers.get_params(header='Content-Length')[0][0])
-                data = self.rfile.read(length)
-                data = json.loads(data)
-                if re.search('/play', self.path):
-                    result = accept_task(data)
-                elif re.search('/check', self.path):
-                    result = query_task_result(data)
-                elif re.search('/kill', self.path):
-                    result = kill_by_id(data)
-                else:
-                    result = self.send_error_info()
-        else:
+            try:
+                if self.headers.get_params()[0][0] == 'application/json':
+                    length = int(self.headers.get_params(header='Content-Length')[0][0])
+                    data = self.rfile.read(length)
+                    data = json.loads(data)
+                    if re.search('/play', self.path):
+                        result = accept_task(data)
+                    elif re.search('/check', self.path):
+                        result = query_task_result(data)
+                    elif re.search('/kill', self.path):
+                        result = kill_by_id(data)
+                    elif re.search('/record', self.path):
+                        result = search_record(data)
+                    else:
+                        result = self.send_error_info()
+            except TypeError as e:
+                logger.exception(e)
+        if not result:
             result = json.dumps({'err': None,
                                  'data': None})
         self.send_response(200)

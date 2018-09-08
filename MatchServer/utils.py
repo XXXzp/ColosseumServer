@@ -47,7 +47,7 @@ def get_message_from_redis(pubsub):
 
 
 def get_log_path(game_id, game_type, if_init=True):
-    log_path = MATCH_LOG_FILE_BASE_DIR + game_id + '/' + game_type + 'log_file'
+    log_path = os.path.join(MATCH_LOG_FILE_BASE_DIR, game_id, game_type + 'log_file')
     if if_init:
         return log_path
     else:
@@ -55,8 +55,8 @@ def get_log_path(game_id, game_type, if_init=True):
 
 
 def get_transaction_path(game_id, game_type, if_init=True):
-    transaction_path = MATCH_LOG_FILE_BASE_DIR + game_id + '/' + \
-                           game_type + 'transaction_file'
+    transaction_path = os.path.join(MATCH_LOG_FILE_BASE_DIR, game_id, \
+                           game_type + 'transaction_file')
     if if_init:
         return transaction_path
     else:
@@ -64,7 +64,7 @@ def get_transaction_path(game_id, game_type, if_init=True):
 
 
 def get_game_detail_path(game_id):
-    return MATCH_LOG_FILE_BASE_DIR+game_id+'/'+GAME_DETAILS_FILE_NAME
+    return os.path.join(MATCH_LOG_FILE_BASE_DIR, game_id, GAME_DETAILS_FILE_NAME)
 
 
 def get_pid_key(game_id):
@@ -72,7 +72,7 @@ def get_pid_key(game_id):
 
 
 def get_game_define_path(game_define):
-    path = POKER_DEFINE_FILES_DIR + game_define
+    path = os.path.join(POKER_DEFINE_FILES_DIR, game_define)
     if os.path.exists(path):
         return path
     else:
